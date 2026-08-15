@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'; 
 import { Instrument_Serif, Barlow, Geist } from 'next/font/google'
 import { ClerkProvider } from "@clerk/nextjs";
 import './globals.css'
@@ -37,11 +38,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning={true} className={cn("dark", instrumentSerif.variable, barlow.variable, "font-sans", geist.variable)}>
         <body suppressHydrationWarning={true} className="bg-black text-white font-body antialiased">
-          <LoadingProvider>
-            <LanguageProvider>
-              {children}  
-            </LanguageProvider>
-          </LoadingProvider>
+          <Suspense fallback={<div className="h-screen w-screen bg-black flex items-center justify-center text-white">Loading...</div>}>
+            <LoadingProvider>
+              <LanguageProvider>
+                {children}  
+              </LanguageProvider>
+            </LoadingProvider>
+          </Suspense>
         </body>
       </html>
     </ClerkProvider>
