@@ -3,22 +3,22 @@ export const NAVIGATION_DATA = {
         leftMenu: {
             title: "Who is it for?",
             items: [
-                { title: "For Work", desc: "Run on what you build.", link: "#" },
-                { title: "Marketers", desc: "Launch pages in minutes.", link: "#" },
-                { title: "Founders", desc: "Ship before you pitch.", link: "#" },
-                { title: "Sales", desc: "Build the demo live.", link: "#" },
-                { title: "Product managers", desc: "Prototype, don't spec.", link: "#" },
-                { title: "Ops", desc: "Tools that fit your flow.", link: "#" },
-                { title: "Designers", desc: "Your designs, built.", link: "#" },
-                { title: "People", desc: "HR tools your team loves.", link: "#" },
+                { title: "For Work", desc: "Run on what you build.", link: "/solutions/for-work" },
+                { title: "Marketers", desc: "Launch pages in minutes.", link: "/solutions/marketers" },
+                { title: "Founders", desc: "Ship before you pitch.", link: "/solutions/founders" },
+                { title: "Sales", desc: "Build the demo live.", link: "/solutions/sales" },
+                { title: "Product managers", desc: "Prototype, don't spec.", link: "/solutions/product-managers" },
+                { title: "Ops", desc: "Tools that fit your flow.", link: "/solutions/ops" },
+                { title: "Designers", desc: "Your designs, built.", link: "/solutions/designers" },
+                { title: "People", desc: "HR tools your team loves.", link: "/solutions/people" },
             ]
         },
         rightMenu: {
             title: "Use cases",
             items: [
-                { title: "Websites", desc: "From idea to live site.", link: "#" },
-                { title: "Prototyping", desc: "Proof of concept in hours.", link: "#" },
-                { title: "Internal tools", desc: "Built for your team.", link: "#" },
+                { title: "Websites", desc: "From idea to live site.", link: "/solutions/use-cases/websites" },
+                { title: "Prototyping", desc: "Proof of concept in hours.", link: "/solutions/use-cases/prototyping" },
+                { title: "Internal tools", desc: "Built for your team.", link: "/solutions/use-cases/internal-tools" },
             ]
         }
     },
@@ -26,13 +26,13 @@ export const NAVIGATION_DATA = {
         leftMenu: {
             title: "Resources",
             items: [
-                { title: "Blog", desc: "Ideas, updates, stories.", link: "#" },
-                { title: "Connectors", desc: "Build from what you already use.", link: "#" },
-                { title: "Partners", desc: "Build more together.", link: "#" },
-                { title: "Academy", desc: "Learn to build with Sverkos", link: "#" },
-                { title: "Templates", desc: "Begin with a template.", link: "#" },
-                { title: "Docs", desc: "Everything under the hood.", link: "#" },
-                { title: "Guides", desc: "Learn as you build.", link: "#" },
+                { title: "Blog", desc: "Ideas, updates, stories.", link: "/resources/blog" },
+                { title: "Connectors", desc: "Build from what you already use.", link: "/resources/connectors" },
+                { title: "Partners", desc: "Build more together.", link: "/resources/partners" },
+                { title: "Academy", desc: "Learn to build with Sverkos", link: "/resources/academy" },
+                { title: "Templates", desc: "Begin with a template.", link: "/resources/templates" },
+                { title: "Docs", desc: "Everything under the hood.", link: "/resources/docs" },
+                { title: "Guides", desc: "Learn as you build.", link: "/resources/guides" },
                 { title: "Byok", desc: "Power the experience using your custom API tokens.", link: "api-setup" }
             ]
         },
@@ -42,7 +42,7 @@ export const NAVIGATION_DATA = {
             card: {
                 image: "/app-user-connectors.avif",
                 text: "Sverkos apps can now work with your users' connected tools",
-                link: "#"
+                link: "/resources/announcement/series-c"
             }
         }
     },
