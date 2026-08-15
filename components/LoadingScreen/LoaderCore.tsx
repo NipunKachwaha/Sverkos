@@ -8,11 +8,10 @@ import * as THREE from 'three';
 import { Playfair_Display } from 'next/font/google';
 import { LiquidText } from './LiquidText';
 
-const elegantFont = Playfair_Display({
+const playfair = Playfair_Display({
     subsets: ['latin'],
-    weight: ['400', '700'],
+    weight: ['400', '600', '700'],
     display: 'swap',
-    variable: '--font-elegant',
 });
 
 // ---------------------------------------------------------------------------
@@ -164,7 +163,7 @@ export function LoaderCore({ progress = 0, isTransitioning = false }: LoaderCore
                             <LiquidText
                                 text="SVERKOS"
                                 progress={displayProgress}
-                                className={`${elegantFont.className} text-4xl md:text-6xl lg:text-7xl font-bold tracking-[0.1em]`}
+                                className={`${playfair.className} text-4xl md:text-6xl lg:text-7xl font-bold tracking-[0.1em]`}
                             />
 
                             {/* The Fast Counter (Minimalist pill design) */}
