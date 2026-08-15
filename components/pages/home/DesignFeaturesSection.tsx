@@ -132,7 +132,7 @@ const DesignFeaturesSection = () => {
             >
                 {/* Video Background */}
                 <FadingVideo
-                    src="/videos/earth.mp4"
+                    src="https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/earth.mp4"
                     className="absolute inset-0 w-full h-full object-cover z-0 rounded-tr-3xl rounded-br-3xl"
                 />
 

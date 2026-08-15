@@ -98,7 +98,7 @@ export default function HeroSection() {
   const backgroundContent = useMemo(() => (
     <>
       <FadingVideo
-        src="/videos/herobg2.mp4"
+        src="https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/herobg2.mp4"
         className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 object-cover min-w-full min-h-full z-0"
         style={{ width: '120vw', height: '120vh' }}
       />

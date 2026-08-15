@@ -23,7 +23,7 @@ export default function PricingSection() {
     return (
         <section className="w-full py-24 px-6 md:px-12 lg:px-20 font-sans text-white relative overflow-hidden">
             <FadingVideo
-                src="/videos/rock2.mp4"
+                src="https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/rock2.mp4"
                 className="absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top z-0 rounded-3xl"
                 style={{
                     width: '98%', 

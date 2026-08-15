@@ -31,7 +31,7 @@ export default function FAQWrapper() {
                     ref={ctaRef}
                     className="relative w-full h-full max-w-full mx-auto shadow-[0_-20px_50px_rgba(0,173,225,0.2)] hover:shadow-[0_-30px_60px_rgba(0,173,225,0.3)] transition-shadow duration-500 px-4 md:px-8 lg:px-12 py-12 md:py-16 lg:py-24 flex flex-col items-center justify-center text-center rounded-t-[2.5rem] md:rounded-t-[3.5rem] lg:rounded-t-[4.5rem]">
                     <FadingVideo
-                        src="/videos/4042.mp4"
+                        src="https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/4042.mp4"
                         className="absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top z-0 rounded-t-[1.5rem] md:rounded-t-[2.5rem] lg:rounded-t-[3.5rem]"
                         style={{ width: '120%', height: '120%', filter: "brightness(1.5) saturate(1.2)" }}
                     />
@@ -125,7 +125,7 @@ export default function FAQWrapper() {
             <div className="sticky top-0 z-20 w-full h-screen">
                 <section className="relative w-full h-full max-w-full mx-auto rounded-t-3xl md:rounded-t-[48px] border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] px-4 md:px-8 lg:px-12 py-24 flex items-center justify-center text-gray-500 overflow-hidden">
                     <FadingVideo
-                        src="/videos/blob2.mp4"
+                        src="https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/blob2.mp4"
                         className="absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top z-0"
                         style={{ width: '120%', height: '120%', filter: "brightness(1.5) saturate(1.2)" }}
                     />
@@ -198,7 +198,7 @@ export default function FAQWrapper() {
                     className="relative w-full h-full max-w-full mx-auto rounded-t-3xl md:rounded-t-[48px] border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] px-4 md:px-8 lg:px-12 py-24 flex items-center justify-center text-gray-400"
                 >
                     <FadingVideo
-                        src="/videos/GardenRemix.mp4"
+                        src="https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/GardenRemix.mp4"
                         className="absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top z-0 rounded-t-[1.5rem] md:rounded-t-[2.5rem] lg:rounded-t-[3.5rem]"
                         style={{ width: '100%', height: '100%', filter: "brightness(1.5) saturate(1.2)" }}
                     />

@@ -14,7 +14,7 @@ export default function NotFoundPage() {
                 playsInline
                 poster="/video-404-cover.jpg"
             >
-                <source src="/videos/4042.mp4" type="video/mp4" />
+                <source src="https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/4042.mp4" type="video/mp4" />
                 {/* Fallback text */}
                 Your browser does not support the video tag.
             </video>

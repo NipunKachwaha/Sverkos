@@ -13,17 +13,17 @@ const Tutorial = () => {
         {
             title: "Start with an idea",
             description: "Describe the app or website you want to create, or drop in screenshots and docs.",
-            videoSrc: "/videos/scene-1.webm",
+            videoSrc: "https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/scene-1.webm",
         },
         {
             title: "Watch it come to life",
             description: "See your vision transform into a working prototype in real time as AI builds it for you.",
-            videoSrc: "/videos/scene-2.webm",
+            videoSrc: "https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/scene-2.webm",
         },
         {
             title: "Refine and ship",
             description: "Iterate on your creation with simple feedback and deploy it to the world with one click.",
-            videoSrc: "/videos/scene-3.webm",
+            videoSrc: "https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/scene-3.webm",
         },
     ];
 
