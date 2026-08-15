@@ -14,7 +14,7 @@ export default function PlanPage() {
 
             <main className="relative flex-1 flex flex-col overflow-hidden transition-all duration-300">
                 <video
-                    src="/videos/Gold.mp4"
+                    src="https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/Gold.mp4"
                     autoPlay
                     loop
                     muted
