@@ -1,7 +1,7 @@
 // app/api/generate/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuth } from '@clerk/nextjs/server';
-import { db } from '@/db';
+import { db } from '@/db/index';
 import { projects, projectFiles, generationLogs } from '@/db/schema';
 import { CodeGenerator } from '@/lib/ai/code-generator';
 import { eq, and } from 'drizzle-orm';
