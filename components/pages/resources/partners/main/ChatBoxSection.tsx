@@ -34,10 +34,10 @@ export default function ChatBoxSection() {
         <>
             <FadingVideo
                 src="https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/girl.mp4"
-                className="absolute inset-0 w-full h-full object-cover z-0 rounded-t-[3rem] rounded-b-none"
+                className="absolute inset-0 w-full h-full object-cover z-0 rounded-3xl"
                 style={{}}
             />
-            <div className="absolute inset-0 z-[1] bg-black/40 rounded-t-[3rem] rounded-b-none" />
+            <div className="absolute inset-0 z-[1] bg-black/20 rounded-3xl" />
         </>
     ), []);
 
