@@ -8,6 +8,8 @@ import BackgroundEffects from '@/components/pages/resources/partners/main/Backgr
 const PartnershipSolutions = dynamic(() => import('@/components/pages/resources/partners/main/PartnershipSolutions'));
 const PartnersImpactSection = dynamic(() => import('@/components/pages/resources/partners/main/PartnersImpactSection'));
 const OtherWaysToPartner = dynamic(() => import('@/components/pages/resources/partners/main/OtherWaysToPartner'));
+const ChatBoxSection = dynamic(() => import('@/components/pages/resources/partners/main/ChatBoxSection'));
+const FAQWrapper = dynamic(() => import('@/components/pages/FAQWrapper'));
 
 export default function Home() {
     return (
@@ -24,17 +26,21 @@ export default function Home() {
 
                 {/* Above the fold - Renders immediately */}
                 <HeroSection />
-                <div className="w-4/5 mx-auto my-2 border-t border-gray-200 dark:border-gray-400" />
+                <div className="w-4/5 mx-auto my-2 border-t border-gray-200" />
 
                 {/* Below the fold - Wrapped in Suspense boundaries */}
                 <Suspense fallback={<SectionLoader />}>
                     <PartnershipSolutions />
                     <div className="h-14" />
-                    <div className="w-full border-t border-gray-200 dark:border-gray-400" />
+                    <div className="w-full border-t border-gray-200 " />
                     <PartnersImpactSection />
-                    <div className="w-4/5 mx-auto my-2 border-t border-gray-200 dark:border-gray-400" />
+                    <div className="w-4/5 mx-auto my-2 border-t border-gray-200 " />
                     <div className="h-20" />
                     <OtherWaysToPartner />
+                    <div className="w-4/5 mx-auto border-t border-gray-200" />
+                    <FAQWrapper>
+                        <ChatBoxSection />
+                    </FAQWrapper>
                 </Suspense>
             </main>
         </SmoothScrolling>

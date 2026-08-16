@@ -1,14 +1,17 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { ReactNode, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import TeamSection from "@/components/pages/home/TeamSection";
 import { SlicedRollingText } from "@/components/ui/SlicedRollingText";
 import Footer from "@/components/pages/home/Footer";
 import FinalFooter from "@/components/pages/home/FinalFooter"
 import FadingVideo from '@/components/ui/FadingVideo'
 
-export default function FAQWrapper() {
+interface FAQWrapperProps {
+    children: ReactNode;
+}
+
+export default function FAQWrapper({ children }: FAQWrapperProps) {
     const ctaRef = useRef<HTMLElement>(null);
     const footerRef = useRef<HTMLElement>(null);
 
@@ -20,9 +23,9 @@ export default function FAQWrapper() {
 
     return (
         <div className="relative w-full block">
-            {/* --- 1. TEAM SECTION --- */}
-            <div className="sticky top-0 z-0 w-full h-screen bg-white">
-                <TeamSection />
+            {/* --- 1. DYNAMIC SECTION --- */}
+            <div className="sticky top-0 z-0 w-full h-screen">
+                {children}
             </div>
 
             {/* --- 2. CTA SECTION --- */}

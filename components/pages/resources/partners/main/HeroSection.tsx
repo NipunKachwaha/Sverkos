@@ -35,7 +35,7 @@ export default function HeroSection() {
             <FadingVideo
                 src="https://github.com/NipunKachwaha/Sverkos-Assets/releases/download/v1.0/girl2loop.mp4"
                 className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 object-cover min-w-full min-h-full z-0"
-                style={{ width: '120vw', height: '120vh' }}
+                style={{ width: '100vw', height: '100vh' }}
             />
             <div className="absolute inset-0 z-[1]" />
         </>

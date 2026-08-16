@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/Icons';
 import FadingVideo from '@/components/ui/FadingVideo';
 import BlurText from '@/components/ui/BlurText';
-import { AI_Prompt } from "@/components/pages/home/Chatbox/animated-ai-input";
+import { AI_Prompt } from "@/components/Chatbox/Showpis/animated-ai-input";
 import ScrollExpand from '@/components/ui/ScrollExpand/ScrollExpand';
 
 // --- Types & Interfaces ---

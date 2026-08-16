@@ -57,33 +57,32 @@ export const SlicedRollingText: React.FC<SlicedRollingTextProps> = ({
 
     // Robust animation orchestration with proper cleanup
     useEffect(() => {
-        if (shouldReduceMotion) return; // Skip animation if user prefers reduced motion
+        if (shouldReduceMotion) return;
 
-        isAnimating.current = true;
+        let isMounted = true;
         let timeoutId: NodeJS.Timeout;
 
         const runAnimation = async () => {
-            while (isAnimating.current) {
-                // Configurable pause instead of the hardcoded 3 seconds
+            while (isMounted) {
                 await new Promise(resolve => {
                     timeoutId = setTimeout(resolve, pauseDuration * 1000);
                 });
                 
-                if (!isAnimating.current) break;
+                if (!isMounted) break;
                 
-                await controls.start("animate");
-                
-                if (!isAnimating.current) break;
-                
-                controls.set("initial");
+                try {
+                    await controls.start("animate");
+                    if (isMounted) {
+                        controls.set("initial");
+                    }
+                } catch (error) {
+                    break; 
+                }
             }
         };
-
         runAnimation();
-
-        // Strict cleanup to prevent memory leaks
         return () => {
-            isAnimating.current = false;
+            isMounted = false;
             clearTimeout(timeoutId);
             controls.stop();
         };

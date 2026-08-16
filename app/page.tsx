@@ -22,7 +22,8 @@ const MarketingSection = dynamic(() => import('@/components/pages/home/Marketing
 const CapabilitiesSection = dynamic(() => import('@/components/pages/home/CapabilitiesSection'));
 const FounderSection = dynamic(() => import('@/components/pages/home/FounderSection'));
 const PricingSection = dynamic(() => import('@/components/pages/home/PricingSection'));
-const FAQWrapper = dynamic(() => import('@/components/pages/home/FAQWrapper'));
+const TeamSection = dynamic(() => import('@/components/pages/home/TeamSection'));
+const FAQWrapper = dynamic(() => import('@/components/pages/FAQWrapper'));
 
 // ---------------------------------------------------------------------------
 // MAIN PAGE COMPONENT
@@ -61,7 +62,9 @@ export default function Home() {
 
           <FounderSection />
           <PricingSection />
-          <FAQWrapper />
+          <FAQWrapper>
+            <TeamSection />
+          </FAQWrapper>
         </Suspense>
       </main>
     </SmoothScrolling>
