@@ -6,7 +6,7 @@ import TeamSection from "@/components/pages/home/TeamSection";
 import { SlicedRollingText } from "@/components/ui/SlicedRollingText";
 import Footer from "@/components/pages/home/Footer";
 import FinalFooter from "@/components/pages/home/FinalFooter"
-import FadingVideo from './FadingVideo'
+import FadingVideo from '@/components/ui/FadingVideo'
 
 export default function FAQWrapper() {
     const ctaRef = useRef<HTMLElement>(null);

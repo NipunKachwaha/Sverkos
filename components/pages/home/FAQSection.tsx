@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SlicedRollingText } from "@/components/ui/SlicedRollingText";
-import FadingVideo from './FadingVideo'
+import FadingVideo from '@/components/ui/FadingVideo'
 
 interface FAQItem {
     question: string;

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import FadingVideo from './FadingVideo'
+import FadingVideo from '@/components/ui/FadingVideo'
 
 // Importing icons from the public folder
 import enginen from '@/public/icons/engine.png'

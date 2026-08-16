@@ -4,7 +4,7 @@ import React, { memo, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import TextPressure from '@/components/ui/TextPressure';
 import { SlicedRollingText } from '@/components/ui/SlicedRollingText';
-import FadingVideo from './FadingVideo'
+import FadingVideo from '@/components/ui/FadingVideo'
 
 // --- TYPES ---
 interface FeatureData {

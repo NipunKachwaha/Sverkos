@@ -28,7 +28,7 @@ export const NAVIGATION_DATA = {
             items: [
                 { title: "Blog", desc: "Ideas, updates, stories.", link: "/resources/blog" },
                 { title: "Connectors", desc: "Build from what you already use.", link: "/resources/connectors" },
-                { title: "Partners", desc: "Build more together.", link: "/resources/partners" },
+                { title: "Partners", desc: "Build more together.", link: "/partners" },
                 { title: "Academy", desc: "Learn to build with Sverkos", link: "/resources/academy" },
                 { title: "Templates", desc: "Begin with a template.", link: "/resources/templates" },
                 { title: "Docs", desc: "Everything under the hood.", link: "/resources/docs" },

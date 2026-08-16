@@ -6,9 +6,9 @@ import {
   ProjectIcon,
   WeeklyProjectIcon,
   ScheduleIcon
-} from './Icons';
-import FadingVideo from './FadingVideo';
-import BlurText from './BlurText';
+} from '@/components/ui/Icons';
+import FadingVideo from '@/components/ui/FadingVideo';
+import BlurText from '@/components/ui/BlurText';
 import { AI_Prompt } from "@/components/pages/home/Chatbox/animated-ai-input";
 import ScrollExpand from '@/components/ui/ScrollExpand/ScrollExpand';
 

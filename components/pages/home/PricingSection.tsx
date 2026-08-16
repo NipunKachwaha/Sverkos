@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { SlicedRollingText } from '@/components/ui/SlicedRollingText';
 import TextPressure from '@/components/ui/TextPressure';
-import FadingVideo from './FadingVideo'
+import FadingVideo from '@/components/ui/FadingVideo'
 
 export default function PricingSection() {
     const containerVariants = {
