@@ -3,7 +3,7 @@ import { BlogPost } from '@/lib/blogs';
 
 export default function BlogCard({ blog }: { blog: BlogPost }) {
     return (
-        <Link href={`/blog/${blog.slug}`} className="group flex flex-col gap-4">
+        <Link href={`/resources/blog/${blog.slug}`} className="group flex flex-col gap-4">
             {/* Image Container */}
             <div className="w-full aspect-[4/3] rounded-xl overflow-hidden bg-white/5 border border-white/10">
                 <img
@@ -22,10 +22,12 @@ export default function BlogCard({ blog }: { blog: BlogPost }) {
 
             {/* Content */}
             <div className="flex flex-col gap-2">
-                <h3 className="text-2xl font-semibold text-white tracking-tight leading-snug group-hover:text-blue-400 transition-colors">
-                    {blog.title}
+                <h3 className="text-2xl font-semibold text-white tracking-tight leading-snug">
+                    <span className="inline bg-gradient-to-r from-white to-white bg-no-repeat bg-left-bottom [background-size:0%_2px] group-hover:[background-size:100%_2px] transition-[background-size] duration-500 pb-1">
+                        {blog.title}
+                    </span>
                 </h3>
-                <p className="text-white/60 text-sm leading-relaxed line-clamp-3">
+                <p className="text-white/60 text-sm leading-relaxed line-clamp-3 mt-1">
                     {blog.excerpt}
                 </p>
             </div>
