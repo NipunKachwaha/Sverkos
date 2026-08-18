@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 interface LiquidTextProps {
     text?: string;
@@ -9,108 +9,56 @@ interface LiquidTextProps {
     className?: string;
 }
 
-// 4 possible axes and directions from which the text can flip in
-const DIRECTIONS = ['up', 'down', 'left', 'right'];
-
 export function LiquidText({ text = 'SVERKOS', className = '' }: LiquidTextProps) {
-    const [index, setIndex] = useState(0);
-    const [direction, setDirection] = useState('up');
-
-    // Sequence controller: every 500ms, change both letter and direction
-    useEffect(() => {
-        if (!text) return;
-
-        const interval = setInterval(() => {
-            setIndex((prevIndex) => (prevIndex + 1) % text.length);
-            // On every new letter, pick a random direction
-            setDirection(DIRECTIONS[Math.floor(Math.random() * DIRECTIONS.length)]);
-        }, 500);
-
-        return () => clearInterval(interval);
-    }, [text]);
-
-    // Framer Motion dynamic variants
-    const letterVariants = {
-        initial: (dir: string) => {
-            switch (dir) {
-                case 'up': return { rotateX: 90, y: 30, opacity: 0, filter: 'blur(8px)', scale: 0.8 };
-                case 'down': return { rotateX: -90, y: -30, opacity: 0, filter: 'blur(8px)', scale: 0.8 };
-                case 'left': return { rotateY: -90, x: -30, opacity: 0, filter: 'blur(8px)', scale: 0.8 };
-                case 'right': return { rotateY: 90, x: 30, opacity: 0, filter: 'blur(8px)', scale: 0.8 };
-                default: return { rotateX: 90, y: 30, opacity: 0 };
-            }
-        },
-        animate: {
-            rotateX: 0,
-            rotateY: 0,
-            x: 0,
-            y: 0,
+    const container = {
+        hidden: { opacity: 0 },
+        show: {
             opacity: 1,
-            filter: 'blur(0px)',
-            scale: 1,
             transition: {
-                type: 'spring',
-                stiffness: 120,
-                damping: 14,
-                mass: 0.8
-            }
+                staggerChildren: 0.1, 
+                delayChildren: 0.2,
+            },
         },
-        exit: (dir: string) => {
-            switch (dir) {
-                case 'up': return { rotateX: -90, y: -30, opacity: 0, filter: 'blur(8px)', scale: 0.8 };
-                case 'down': return { rotateX: 90, y: 30, opacity: 0, filter: 'blur(8px)', scale: 0.8 };
-                case 'left': return { rotateY: 90, x: 30, opacity: 0, filter: 'blur(8px)', scale: 0.8 };
-                case 'right': return { rotateY: -90, x: -30, opacity: 0, filter: 'blur(8px)', scale: 0.8 };
-                default: return { rotateX: -90, y: -30, opacity: 0 };
-            }
-        }
+    };
+
+    const letter = {
+        hidden: { opacity: 0, y: 40, scale: 0.8, filter: 'blur(10px)' },
+        show: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: 'blur(0px)',
+            transition: { type: 'spring', damping: 14, stiffness: 100 },
+        },
     };
 
     return (
-        <div
-            className={`relative flex items-center justify-center ${className}`}
-            style={{ perspective: '1200px' }} // Preserves 3D depth
-        >
-            {/* Invisible placeholder: prevents layout jumping */}
-            <span
-                className="invisible pointer-events-none select-none"
+        <div className={`relative flex items-center justify-center ${className}`}>
+            <motion.div
+                variants={container}
+                initial="hidden"
+                animate="show"
+                className="flex items-center justify-center"
                 style={{
+                    color: 'white',
                     fontFamily: 'Impact, "Arial Black", sans-serif',
-                    fontWeight: 900
+                    fontWeight: 900,
+                    textTransform: 'uppercase',
+                    transform: 'scaleY(1.15)',
+                    letterSpacing: 'normal',
                 }}
             >
-                W {/* Uses a wide letter to ensure the container remains large enough */}
-            </span>
-
-            <AnimatePresence mode="popLayout" custom={direction}>
-                <motion.div
-                    key={index}
-                    custom={direction} // Passes current direction to variant
-                    variants={letterVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    className="absolute flex items-center justify-center uppercase"
-                    style={{
-                        transformStyle: 'preserve-3d',
-
-                        // ---------------------------------------------------
-                        // INVERTED BACKGROUND UI STYLING
-                        // ---------------------------------------------------
-                        // 1. Solid white color for text
-                        color: 'white',
-
-                        // 2. This property inverts the background colors behind the text
-                        mixBlendMode: 'difference',
-
-                        // 3. Thick, blocky font matching the SR video
-                        fontFamily: 'Impact, "Arial Black", sans-serif',
-                        fontWeight: 900,
-                    }}
-                >
-                    {text[index]}
-                </motion.div>
-            </AnimatePresence>
+                {text.split('').map((char, i) => (
+                    <motion.span 
+                        key={i} 
+                        variants={letter} 
+                        className="inline-block"
+                        style={{ fontSize: 'clamp(4rem, 15vw, 12rem)' }} 
+                    >
+                        {char}
+                    </motion.span>
+                ))}
+            </motion.div>
         </div>
     );
 }
