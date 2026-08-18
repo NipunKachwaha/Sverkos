@@ -30,15 +30,20 @@ export function LoadingProvider({ children }: PropsWithChildren) {
     const pageReadyRef = useRef(false);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const fadeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const bufferTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const clearTimers = useCallback(() => {
         if (intervalRef.current) clearInterval(intervalRef.current);
         if (fadeTimeoutRef.current) clearTimeout(fadeTimeoutRef.current);
+        if (bufferTimeoutRef.current) clearTimeout(bufferTimeoutRef.current);
     }, []);
 
     // Cleanup on unmount
     useEffect(() => clearTimers, [clearTimers]);
 
+    // ---------------------------------------------------------
+    // PHASE 1: COMPLETION EXECUTION
+    // ---------------------------------------------------------
     const executeComplete = useCallback(() => {
         clearTimers(); 
         setProgress(100); 
@@ -51,7 +56,9 @@ export function LoadingProvider({ children }: PropsWithChildren) {
         }, ANIMATION_DELAY);
     }, [clearTimers]);
 
-    // Progress Bar Logic
+    // ---------------------------------------------------------
+    // PHASE 2: PROGRESS BAR LOOP
+    // ---------------------------------------------------------
     useEffect(() => {
         if (isLoading && !isFadingOut) {
             setProgress(0);
@@ -60,12 +67,11 @@ export function LoadingProvider({ children }: PropsWithChildren) {
             intervalRef.current = setInterval(() => {
                 setProgress((prev) => {
                     if (pageReadyRef.current) {
-                        return Math.min(prev + 15, MAX_PROGRESS); // Speed up when ready
+                        return Math.min(prev + 15, MAX_PROGRESS); 
                     } 
                     if (prev >= MAX_PROGRESS) {
-                        return MAX_PROGRESS; // Hold at 99%
+                        return MAX_PROGRESS; 
                     }
-                    // Natural easing logic for loading
                     const increment = prev < 60 ? Math.random() * 4 + 1 : prev < 90 ? Math.random() * 2 + 0.5 : 0.2; 
                     return Math.min(prev + increment, MAX_PROGRESS);
                 });
@@ -73,18 +79,19 @@ export function LoadingProvider({ children }: PropsWithChildren) {
         }
     }, [isLoading, isFadingOut, clearTimers]); 
 
+    // ---------------------------------------------------------
+    // PHASE 3: THE 99% GATEKEEPER & ANTI-HANG WATCHDOG
+    // ---------------------------------------------------------
     const stopLoading = useCallback(() => {
         pageReadyRef.current = true; 
         setIsPageReady(true); 
     }, []);
 
-    // 99% Check / Watchdog Logic
     useEffect(() => {
         if (isLoading && !isFadingOut && progress >= MAX_PROGRESS) {
             if (isPageReady) {
                 executeComplete();
             } else {
-                // WATCHDOG: If stuck at 99% for 3 seconds without route change (same page load/error)
                 const watchdogTimer = setTimeout(() => {
                     stopLoading();
                 }, 3000); 
@@ -93,16 +100,25 @@ export function LoadingProvider({ children }: PropsWithChildren) {
         }
     }, [progress, isLoading, isFadingOut, isPageReady, executeComplete, stopLoading]);
 
-    // SERVER LOAD CHECKER: Detect if the page actually changed
+    // ---------------------------------------------------------
+    // PHASE 4: ROUTE CHANGE DETECTOR 
+    // ---------------------------------------------------------
     useEffect(() => {
         if (previousUrlRef.current !== currentUrl) {
             previousUrlRef.current = currentUrl;
             if (isLoading) {
-                stopLoading();
+                bufferTimeoutRef.current = setTimeout(() => {
+                    requestAnimationFrame(() => {
+                        stopLoading();
+                    });
+                }, 2000); 
             }
         }
     }, [currentUrl, isLoading, stopLoading]);
 
+    // ---------------------------------------------------------
+    // PHASE 5: START LOGIC
+    // ---------------------------------------------------------
     const startLoading = useCallback(() => {
         if (isLoading) return;
         clearTimers(); 
