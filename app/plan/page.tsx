@@ -10,7 +10,7 @@ import { ScrollButtons } from "@/components/ui/scroll-buttons";
 
 export const metadata: Metadata = {
     title: 'Plan AI',
-  };
+};
 
 export default function PlanPage() {
     return (

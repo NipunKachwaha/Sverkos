@@ -54,7 +54,6 @@ export function LoaderCore({ progress = 0, isTransitioning = false }: LoaderCore
                         muted
                         playsInline
                         preload="auto"
-                        // opacity-80 hata diya hai taaki video ke 100% original, vibrant colors dikhein
                         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     >
                         <source src="/Loading.mp4" type="video/mp4" />
@@ -83,7 +82,6 @@ export function LoaderCore({ progress = 0, isTransitioning = false }: LoaderCore
                     </div>
 
                     {/* LAYER 3: CENTER ANIMATION (Blend Mode Applied Here!) */}
-                    {/* FIXED: Removed z-20, top-1/2, left-1/2, translate-x/y to prevent Stacking Context blocking */}
                     <div 
                         className="absolute inset-0 flex flex-col items-center justify-center gap-6 pointer-events-none"
                         style={{ mixBlendMode: 'difference', color: 'white' }}
