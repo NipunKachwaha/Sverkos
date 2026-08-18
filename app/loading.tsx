@@ -1,7 +1,6 @@
 import React from 'react';
-import { LoaderCore } from '@/components/LoadingScreen/LoaderCore'; // Adjust import path
+import { LoaderCore } from '@/components/LoadingScreen/LoaderCore'; 
 
 export default function Loading() {
-    // Uses the indeterminate state of LoaderCore
     return <LoaderCore />;
 }

@@ -1,11 +1,16 @@
 "use client";
 
+import type { Metadata } from 'next';
 import { motion } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import { Sidebar } from "@/components/Sidebar/sidebar";
 import { AI_Prompt } from "@/components/Chatbox/plan/animated-ai-input";
 import { BottomSection } from "@/components/pages/plan/BottomSection";
 import { ScrollButtons } from "@/components/ui/scroll-buttons";
+
+export const metadata: Metadata = {
+    title: 'Plan AI',
+  };
 
 export default function PlanPage() {
     return (

@@ -1,8 +1,14 @@
+import type { Metadata } from 'next';
 import SmoothScrolling from '@/components/ui/SmoothScrolling';
 import { getAllBlogs } from '@/lib/blogs';
 import BlogCard from '@/components/pages/resources/blog/BlogCard';
 import BlogSidebar from '@/components/pages/resources/blog/BlogSidebar';
 import FAQWrapper from '@/components/pages/FAQWrapper';
+import Navbar from '@/components/navigation/Navbar';
+
+export const metadata: Metadata = {
+    title: 'Blogs',
+};
 
 export default function BlogPage({ searchParams }: { searchParams: { category?: string } }) {
     const blogs = getAllBlogs();
@@ -15,6 +21,7 @@ export default function BlogPage({ searchParams }: { searchParams: { category?: 
 
     return (
         <SmoothScrolling>
+            <Navbar />
             <FAQWrapper>
                 <div className="blog-wrapper-override w-full min-h-screen bg-black text-white relative z-10 flex flex-col items-center">
 

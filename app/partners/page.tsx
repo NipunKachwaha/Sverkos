@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+import type { Metadata } from 'next';
 import Navbar from '@/components/navigation/Navbar';
 import HeroSection from '@/components/pages/resources/partners/main/HeroSection';
 import SmoothScrolling from '@/components/ui/SmoothScrolling';
@@ -10,6 +11,10 @@ const PartnersImpactSection = dynamic(() => import('@/components/pages/resources
 const OtherWaysToPartner = dynamic(() => import('@/components/pages/resources/partners/main/OtherWaysToPartner'));
 const ChatBoxSection = dynamic(() => import('@/components/pages/resources/partners/main/ChatBoxSection'));
 const FAQWrapper = dynamic(() => import('@/components/pages/FAQWrapper'));
+
+export const metadata: Metadata = {
+    title: 'Partners',
+};
 
 export default function Home() {
     return (

@@ -36,11 +36,9 @@ export function LoadingProvider({ children }: PropsWithChildren) {
         if (fadeTimeoutRef.current) clearTimeout(fadeTimeoutRef.current);
     }, []);
 
+    // Cleanup on unmount
     useEffect(() => clearTimers, [clearTimers]);
 
-    // ---------------------------------------------------------
-    // PHASE 1: COMPLETION EXECUTION
-    // ---------------------------------------------------------
     const executeComplete = useCallback(() => {
         clearTimers(); 
         setProgress(100); 
@@ -53,64 +51,49 @@ export function LoadingProvider({ children }: PropsWithChildren) {
         }, ANIMATION_DELAY);
     }, [clearTimers]);
 
-    // ---------------------------------------------------------
-    // PHASE 2: PROGRESS BAR LOOP
-    // ---------------------------------------------------------
+    // Progress Bar Logic
     useEffect(() => {
         if (isLoading && !isFadingOut) {
             setProgress(0);
-            if (intervalRef.current) clearInterval(intervalRef.current);
+            clearTimers();
             
             intervalRef.current = setInterval(() => {
                 setProgress((prev) => {
                     if (pageReadyRef.current) {
-                        return Math.min(prev + 12, MAX_PROGRESS); 
+                        return Math.min(prev + 15, MAX_PROGRESS); // Speed up when ready
                     } 
                     if (prev >= MAX_PROGRESS) {
-                        return MAX_PROGRESS; 
+                        return MAX_PROGRESS; // Hold at 99%
                     }
-                    const increment = prev < 60 
-                        ? Math.random() * 4 + 1 
-                        : prev < 90 
-                            ? Math.random() * 2 + 0.5 
-                            : 0.2; 
-                            
+                    // Natural easing logic for loading
+                    const increment = prev < 60 ? Math.random() * 4 + 1 : prev < 90 ? Math.random() * 2 + 0.5 : 0.2; 
                     return Math.min(prev + increment, MAX_PROGRESS);
                 });
             }, 100); 
         }
-    }, [isLoading, isFadingOut]); 
+    }, [isLoading, isFadingOut, clearTimers]); 
 
-    // ---------------------------------------------------------
-    // PHASE 3: THE 99% GATEKEEPER & ANTI-HANG WATCHDOG
-    // ---------------------------------------------------------
     const stopLoading = useCallback(() => {
         pageReadyRef.current = true; 
         setIsPageReady(true); 
     }, []);
 
+    // 99% Check / Watchdog Logic
     useEffect(() => {
         if (isLoading && !isFadingOut && progress >= MAX_PROGRESS) {
             if (isPageReady) {
-                // Agar server ne naya page load kar diya, turant off karo
                 executeComplete();
             } else {
-                // THE FIX: WATCHDOG TIMER
-                // Agar 99% par aakar atak gaya (e.g. same page par click kar diya) 
-                // toh 2 seconds (2000ms) wait karega, uske baad force-close kar dega
+                // WATCHDOG: If stuck at 99% for 3 seconds without route change (same page load/error)
                 const watchdogTimer = setTimeout(() => {
-                    console.log("Watchdog triggered: Forcing loader to close (Same page or slow network)");
                     stopLoading();
-                }, 2000); 
-                
+                }, 3000); 
                 return () => clearTimeout(watchdogTimer);
             }
         }
     }, [progress, isLoading, isFadingOut, isPageReady, executeComplete, stopLoading]);
 
-    // ---------------------------------------------------------
-    // PHASE 4: ROUTE CHANGE DETECTOR
-    // ---------------------------------------------------------
+    // SERVER LOAD CHECKER: Detect if the page actually changed
     useEffect(() => {
         if (previousUrlRef.current !== currentUrl) {
             previousUrlRef.current = currentUrl;
@@ -120,16 +103,11 @@ export function LoadingProvider({ children }: PropsWithChildren) {
         }
     }, [currentUrl, isLoading, stopLoading]);
 
-    // ---------------------------------------------------------
-    // PHASE 5: START LOGIC
-    // ---------------------------------------------------------
     const startLoading = useCallback(() => {
         if (isLoading) return;
-        
         clearTimers(); 
         pageReadyRef.current = false; 
         setIsPageReady(false); 
-        
         setIsLoading(true);
         setIsFadingOut(false);
         previousUrlRef.current = currentUrl;

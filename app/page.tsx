@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 
 // ---------------------------------------------------------------------------
@@ -23,11 +24,13 @@ const CapabilitiesSection = dynamic(() => import('@/components/pages/home/Capabi
 const FounderSection = dynamic(() => import('@/components/pages/home/FounderSection'));
 const PricingSection = dynamic(() => import('@/components/pages/home/PricingSection'));
 const TeamSection = dynamic(() => import('@/components/pages/home/TeamSection'));
+const FAQSection = dynamic(() => import('@/components/pages/home/FAQSection'));
 const FAQWrapper = dynamic(() => import('@/components/pages/FAQWrapper'));
 
-// ---------------------------------------------------------------------------
-// MAIN PAGE COMPONENT
-// ---------------------------------------------------------------------------
+export const metadata: Metadata = {
+  title: 'Sverkos | Build AI Apps at the Speed of Light',
+};
+
 export default function Home() {
   return (
     <SmoothScrolling>
@@ -62,6 +65,7 @@ export default function Home() {
 
           <FounderSection />
           <PricingSection />
+          <FAQSection />
           <FAQWrapper>
             <TeamSection />
           </FAQWrapper>

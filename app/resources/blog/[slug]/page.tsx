@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import SmoothScrolling from '@/components/ui/SmoothScrolling';
 import Navbar from '@/components/navigation/Navbar';
 import Link from 'next/link';
@@ -6,6 +7,10 @@ import ReactMarkdown from 'react-markdown';
 import { notFound } from 'next/navigation';
 import rehypeRaw from 'rehype-raw';
 import FAQWrapper from '@/components/pages/FAQWrapper';
+
+export const metadata: Metadata = {
+    title: 'Blogs',
+  };
 
 export async function generateStaticParams() {
     const blogs = await getAllBlogs();
