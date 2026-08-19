@@ -19,7 +19,6 @@ interface MenuLayoutProps {
 
 export default function MenuLayout({ isActive, leftTitle, leftItems = [], rightTitle, rightItems = [], rightCard }: MenuLayoutProps) {
     return (
-        // Changed flex direction to support smaller laptop/tablet wrapping safely
         <div className="flex flex-col md:flex-row gap-6 md:gap-8 w-full h-full">
             {/* Left Column */}
             <div className={`flex-1 min-w-[280px] transform transition-all duration-700 ease-out will-change-transform ${isActive ? 'opacity-100 translate-y-0 delay-100' : 'opacity-0 translate-y-4'}`}>

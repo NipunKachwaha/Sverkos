@@ -20,27 +20,27 @@ export default function TransitionLink({ children, href, className, onClick, ...
     const handleTransition = useCallback((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         if (onClick) onClick(e);
 
-        // Agar loader pehle se chal raha hai toh naye click ko ignore karo
+        // If the loader is already running, ignore new clicks
         if (isLoading) return;
 
-        e.preventDefault(); 
+        e.preventDefault();
 
-        // 1. ORDER MILTE HI INSTANTLY LOADER START KARO
+        // 1. Start the loader instantly when the click is registered
         startLoading();
 
-        // 2. 800ms WAIT KARO TAAKI LOADER SCREEN KO PURI TARAH COVER KAR LE
+        // 2. Wait for 800ms so the loading screen has time to appear
         setTimeout(() => {
             const currentUrl = `${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
-            const targetUrl = href.toString().split('#')[0]; 
+            const targetUrl = href.toString().split('#')[0];
 
             if (targetUrl === currentUrl || targetUrl === pathname) {
-                // Agar same page hai -> Force Hard Reload karo
+                // If it's the same page, force a hard reload
                 window.location.href = href.toString();
             } else {
-                // Agar naya page hai -> Next.js Background Redirect karo
+                // If it's a different page, use Next.js router to navigate
                 router.push(href.toString());
             }
-        }, 800); 
+        }, 800);
 
     }, [isLoading, href, onClick, startLoading, router, pathname, searchParams]);
 
