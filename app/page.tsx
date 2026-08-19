@@ -9,7 +9,6 @@ import Navbar from '@/components/navigation/Navbar';
 import HeroSection from '@/components/pages/home/HeroSection';
 import SmoothScrolling from '@/components/ui/SmoothScrolling';
 import BackgroundEffects from '@/components/pages/home/BackgroundEffects';
-import { PageLoadTrigger } from '@/components/LoadingScreen/PageLoadTrigger';
 
 // ---------------------------------------------------------------------------
 // BELOW-THE-FOLD SECTIONS (Lazy loaded for faster Initial Page Load)
@@ -34,9 +33,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <SmoothScrolling>
-
-      {/* PageLoad Trigger */}
-      <PageLoadTrigger />
 
       {/* Background Effects */}
       <BackgroundEffects />

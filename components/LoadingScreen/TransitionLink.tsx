@@ -20,22 +20,28 @@ export default function TransitionLink({ children, href, className, onClick, ...
     const handleTransition = useCallback((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         if (onClick) onClick(e);
 
-        const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
-        const targetUrl = href.toString().split('#')[0]; // Ignoring hash for comparisons
+        // Agar loader pehle se chal raha hai toh naye click ko ignore karo
+        if (isLoading) return;
 
-        // Prevent double triggers
-        if (!isLoading && href) {
-            
-            // SECURITY CHECK: If navigating to the exact same page, let Next.js handle it normally
-            // without triggering the loading screen to avoid an infinite loading hang.
+        e.preventDefault(); 
+
+        // 1. ORDER MILTE HI INSTANTLY LOADER START KARO
+        startLoading();
+
+        // 2. 800ms WAIT KARO TAAKI LOADER SCREEN KO PURI TARAH COVER KAR LE
+        setTimeout(() => {
+            const currentUrl = `${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
+            const targetUrl = href.toString().split('#')[0]; 
+
             if (targetUrl === currentUrl || targetUrl === pathname) {
-                return;
+                // Agar same page hai -> Force Hard Reload karo
+                window.location.href = href.toString();
+            } else {
+                // Agar naya page hai -> Next.js Background Redirect karo
+                router.push(href.toString());
             }
+        }, 800); 
 
-            e.preventDefault();
-            startLoading();
-            router.push(href.toString());
-        }
     }, [isLoading, href, onClick, startLoading, router, pathname, searchParams]);
 
     return (

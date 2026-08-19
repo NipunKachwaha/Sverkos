@@ -8,6 +8,7 @@ import localFont from 'next/font/local';
 import MenuLayout from './MenuLayout';
 import MetallicPaint from "@/components/ui/MetallicPaint/MetallicPaint";
 import TransitionLink from '@/components/LoadingScreen/TransitionLink';
+import { ForceLoader } from '@/components/LoadingScreen/ForceLoader';
 import { NAVIGATION_DATA } from '@/data/navigation';
 
 const Zaslia = localFont({
@@ -43,7 +44,7 @@ function Logo() {
     contour: 0.1 + Math.random() * 0.4,
     lightColor: `#${(0xf8 + Math.floor(Math.random() * 0x07)).toString(16)}${(0xf8 + Math.floor(Math.random() * 0x07)).toString(16)}${(0xf8 + Math.floor(Math.random() * 0x07)).toString(16)}`,
     darkColor: `#${(Math.floor(Math.random() * 0x08)).toString(16).padStart(2, '0')}${(Math.floor(Math.random() * 0x08)).toString(16).padStart(2, '0')}${(Math.floor(Math.random() * 0x08)).toString(16).padStart(2, '0')}`,
-    tintColor: `#feb${["0","1","2","3","4","a","b","c","d","e","f"][Math.floor(Math.random()*12)]}${["0","1","2","3","4","a","b","c","d","e","f"][Math.floor(Math.random()*12)]}`
+    tintColor: `#feb${["0", "1", "2", "3", "4", "a", "b", "c", "d", "e", "f"][Math.floor(Math.random() * 12)]}${["0", "1", "2", "3", "4", "a", "b", "c", "d", "e", "f"][Math.floor(Math.random() * 12)]}`
   }));
 
   useEffect(() => {
@@ -67,7 +68,7 @@ function Logo() {
         contour: 0.1 + Math.random() * 0.4,
         lightColor: `#${(0xf8 + Math.floor(Math.random() * 0x07)).toString(16)}${(0xf8 + Math.floor(Math.random() * 0x07)).toString(16)}${(0xf8 + Math.floor(Math.random() * 0x07)).toString(16)}`,
         darkColor: `#${(Math.floor(Math.random() * 0x08)).toString(16).padStart(2, '0')}${(Math.floor(Math.random() * 0x08)).toString(16).padStart(2, '0')}${(Math.floor(Math.random() * 0x08)).toString(16).padStart(2, '0')}`,
-        tintColor: `#feb${["0","1","2","3","4","a","b","c","d","e","f"][Math.floor(Math.random()*12)]}${["0","1","2","3","4","a","b","c","d","e","f"][Math.floor(Math.random()*12)]}`
+        tintColor: `#feb${["0", "1", "2", "3", "4", "a", "b", "c", "d", "e", "f"][Math.floor(Math.random() * 12)]}${["0", "1", "2", "3", "4", "a", "b", "c", "d", "e", "f"][Math.floor(Math.random() * 12)]}`
       });
     }, 10000);
     return () => clearInterval(interval);
@@ -172,6 +173,7 @@ export default function Navbar() {
   return (
     <header className="fixed top-4 left-0 w-full px-4 lg:px-16 z-[100] flex items-center justify-between"
       onMouseLeave={handleMouseLeave}>
+      <ForceLoader />
 
       {/* Brand Logo & Mobile Hamburger */}
       <div className="flex items-center gap-3 relative z-[110]">
@@ -226,10 +228,10 @@ export default function Navbar() {
             </li>
           ))}
           <li>
-            <TransitionLink 
-                  href="/pricing" 
-                  onMouseEnter={closeMenuInstantly}
-                  className="bg-white text-black rounded-full px-5 py-2 text-sm font-semibold flex items-center gap-1.5 ml-2 hover:bg-gray-100 transition-colors focus-visible:ring-2 focus-visible:ring-white shadow-md"
+            <TransitionLink
+              href="/pricing"
+              onMouseEnter={closeMenuInstantly}
+              className="bg-white text-black rounded-full px-5 py-2 text-sm font-semibold flex items-center gap-1.5 ml-2 hover:bg-gray-100 transition-colors focus-visible:ring-2 focus-visible:ring-white shadow-md"
             >
               Pricing <ArrowUpRight className="h-4 w-4" />
             </TransitionLink>
@@ -273,7 +275,7 @@ export default function Navbar() {
         className={`fixed inset-[-20px] z-[105] bg-[#050505]/95 backdrop-blur-3xl lg:hidden transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col pt-[100px] overscroll-contain ${isMobileMenuOpen
           ? 'opacity-100 pointer-events-auto'
           : 'opacity-0 pointer-events-none'
-        }`}
+          }`}
       >
         <div className={`absolute top-20 right-[-10%] w-64 h-64 bg-blue-500/20 rounded-full blur-[100px] transition-transform duration-1000 ease-out ${isMobileMenuOpen ? 'scale-100 translate-y-0' : 'scale-50 -translate-y-20'}`} />
 

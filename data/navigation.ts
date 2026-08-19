@@ -33,7 +33,7 @@ export const NAVIGATION_DATA = {
                 { title: "Templates", desc: "Begin with a template.", link: "/resources/templates" },
                 { title: "Docs", desc: "Everything under the hood.", link: "https://docs.sverkos.vercel.app" },
                 { title: "Guides", desc: "Learn as you build.", link: "/resources/guides" },
-                { title: "Byok", desc: "Power the experience using your custom API tokens.", link: "api-setup" }
+                { title: "Byok", desc: "Power the experience using your custom API tokens.", link: "/api-setup" }
             ]
         },
         rightMenu: {

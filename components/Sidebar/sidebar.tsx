@@ -45,7 +45,6 @@ import {
 import { ReferralModal } from "@/components/referral/ReferralModal";
 import FeedbackCard from "@/components/Feedback/FeedbackCard";
 import NotificationCard from "@/components/Notification/NotificationCard";
-import TransitionLink from "@/components/LoadingScreen/TransitionLink"; 
 
 // ========== language Selector Hook ==========
 import { useLanguage } from "@/hooks/useLanguage";
@@ -316,7 +315,7 @@ export function Sidebar({ className }: { className?: string }) {
                         {primaryNav.map((item) => {
                             const isActive = pathname === item.href;
                             const linkContent = (
-                                <TransitionLink href={item.href} onClick={() => startLoading()} className={cn(
+                                <Link href={item.href} onClick={() => startLoading()} className={cn(
                                     "flex items-center transition-all duration-200 group w-full",
                                     isCollapsed
                                         ? "justify-center w-8 h-8 mx-auto rounded-[10px]"
@@ -333,7 +332,7 @@ export function Sidebar({ className }: { className?: string }) {
                                         strokeWidth={isActive ? 2.5 : 2}
                                     />
                                     {!isCollapsed && <span className="text-xs truncate">{item.name === "Superagents" ? "Agents" : item.name}</span>}
-                                </TransitionLink>
+                                </Link>
                             );
 
                             if (isCollapsed) {
@@ -355,7 +354,7 @@ export function Sidebar({ className }: { className?: string }) {
                             {secondaryNav.map((item) => {
                                 const isActive = pathname === item.href;
                                 const linkContent = (
-                                    <TransitionLink href={item.href} className={cn(
+                                    <Link href={item.href} className={cn(
                                         "flex items-center transition-all duration-200",
                                         isCollapsed ? "justify-center w-9 h-9 mx-auto rounded-xl" : "w-full gap-3 px-3 py-2 rounded-lg",
                                         isActive
@@ -364,7 +363,7 @@ export function Sidebar({ className }: { className?: string }) {
                                     )}>
                                         <item.icon className="shrink-0 w-4 h-4" strokeWidth={isActive ? 2.5 : 2} />
                                         {!isCollapsed && <span className="text-sm truncate">{item.name}</span>}
-                                    </TransitionLink>
+                                    </Link>
                                 );
 
                                 if (isCollapsed) {
@@ -427,7 +426,7 @@ export function Sidebar({ className }: { className?: string }) {
                                                 className="overflow-hidden"
                                             >
                                                 <div className="ml-5 pl-3 py-1 my-1 space-y-1 border-l border-neutral-200">
-                                                    <TransitionLink
+                                                    <Link
                                                         href="/partners/messages"
                                                         onClick={() => startLoading()}
                                                         className={cn(
@@ -437,8 +436,8 @@ export function Sidebar({ className }: { className?: string }) {
                                                     >
                                                         <MessageSquareText className="w-4 h-4 shrink-0" />
                                                         <span className="truncate">Messages</span>
-                                                    </TransitionLink>
-                                                    <TransitionLink
+                                                    </Link>
+                                                    <Link
                                                         href="/partners"
                                                         className={cn(
                                                             "w-full text-left px-3 py-1.5 rounded-lg text-sm flex items-center gap-2.5 transition-colors",
@@ -447,7 +446,7 @@ export function Sidebar({ className }: { className?: string }) {
                                                     >
                                                         <Handshake className="w-4 h-4 shrink-0" />
                                                         <span className="truncate">Hire a partner</span>
-                                                    </TransitionLink>
+                                                    </Link>
                                                 </div>
                                             </motion.div>
                                         )}

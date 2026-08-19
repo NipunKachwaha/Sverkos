@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import { notFound } from 'next/navigation';
 import rehypeRaw from 'rehype-raw';
 import FAQWrapper from '@/components/pages/FAQWrapper';
+import BackgroundEffects from '@/components/pages/home/BackgroundEffects';
 
 export const metadata: Metadata = {
     title: 'Blogs',
@@ -32,7 +33,8 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             <Navbar />
             <FAQWrapper>
                 {/* Scroll fix identifier */}
-                <div className="blog-wrapper-override w-full min-h-screen bg-black text-white relative z-10 flex flex-col items-center">
+                <div className="blog-wrapper-override w-full min-h-screen text-white relative z-10 flex flex-col items-center">
+                <BackgroundEffects />
                     {/* FAQWrapper Scroll Override */}
                     <style
                         dangerouslySetInnerHTML={{

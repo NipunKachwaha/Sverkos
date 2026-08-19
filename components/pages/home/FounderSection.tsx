@@ -63,13 +63,14 @@ export default function FounderSection() {
                     {/* Profile Image with Liquid Glass Border */}
                     <motion.div
                         variants={itemVariants}
-                        className="relative w-28 h-28 md:w-36 md:h-36 shrink-0 liquid-glass rounded-xl overflow-hidden shadow-2xl"
+                        className="relative w-28 h-28 md:w-36 md:h-36 shrink-0 liquid-glass rounded-xl overflow-hidden shadow-2xl flex items-center justify-center"
                     >
                         <Image
-                            src="/placeholder-profile.jpg" 
+                            src="/Founder/ji.jpeg" 
                             alt="Founder Profile"
-                            fill
-                            className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                            width={160}
+                            height={160}
+                            className="object-cover grayscale hover:grayscale-0 transition-all duration-500 w-24 h-24 md:w-32 md:h-32 rounded-xl mx-auto"
                         />
                     </motion.div>
                 </div>

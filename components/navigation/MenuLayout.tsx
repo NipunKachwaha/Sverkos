@@ -1,6 +1,6 @@
 import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
+import TransitionLink from '@/components/LoadingScreen/TransitionLink';
 
 interface MenuItem {
     title: string;
@@ -28,10 +28,10 @@ export default function MenuLayout({ isActive, leftTitle, leftItems = [], rightT
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-4">
                     {leftItems.map((item) => (
-                        <Link key={item.title} href={item.link || "#"} className="cursor-pointer group/link block no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-md">
+                        <TransitionLink key={item.title} href={item.link || "#"} className="cursor-pointer group/link block no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-md">
                             <p className="text-white text-sm font-semibold mb-1 group-hover/link:text-white/70 transition-colors">{item.title}</p>
                             <p className="text-white/60 text-xs line-clamp-2">{item.desc}</p>
-                        </Link>
+                        </TransitionLink>
                     ))}
                 </div>
             </div>
@@ -46,16 +46,16 @@ export default function MenuLayout({ isActive, leftTitle, leftItems = [], rightT
                 {rightItems.length > 0 && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6">
                         {rightItems.map((item) => (
-                            <Link key={item.title} href={item.link || "#"} className="cursor-pointer group/link block no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-md">
+                            <TransitionLink key={item.title} href={item.link || "#"} className="cursor-pointer group/link block no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-md">
                                 <p className="text-white text-sm font-semibold mb-1 group-hover/link:text-white/70 transition-colors">{item.title}</p>
                                 <p className="text-white/60 text-xs">{item.desc}</p>
-                            </Link>
+                            </TransitionLink>
                         ))}
                     </div>
                 )}
 
                 {rightCard && (
-                    <Link href={rightCard.link} className="block cursor-pointer group/card rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
+                    <TransitionLink href={rightCard.link} className="block cursor-pointer group/card rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
                         <div className="h-32 bg-[#1a1a1a] relative overflow-hidden">
                             <Image src={rightCard.image} alt="Featured Content" fill className="object-cover" sizes="(max-width: 768px) 100vw, 256px" />
                         </div>
@@ -65,7 +65,7 @@ export default function MenuLayout({ isActive, leftTitle, leftItems = [], rightT
                                 Learn more <span aria-hidden="true" className="text-[10px]">&rarr;</span>
                             </p>
                         </div>
-                    </Link>
+                    </TransitionLink>
                 )}
             </div>
         </div>

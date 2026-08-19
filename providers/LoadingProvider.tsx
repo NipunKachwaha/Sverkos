@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useRef, useCallback, useMemo, PropsWithChildren } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, useCallback, useMemo, type PropsWithChildren } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { LoaderCore } from '@/components/LoadingScreen/LoaderCore';
 
@@ -11,128 +11,123 @@ type LoadingContextProps = {
     progress: number;
 };
 
-const LoadingContext = createContext<LoadingContextProps | null>(null);
+const LoadingContext = createContext<LoadingContextProps | undefined>(undefined);
 
-const MAX_PROGRESS = 99; 
-const ANIMATION_DELAY = 600; 
+const MAX_PROGRESS = 99;
+const ANIMATION_DELAY = 600;
+const PROGRESS_INTERVAL = 100;
+const MINIMUM_LOAD_TIME = 10000; // Strict 10-second minimum
 
 export function LoadingProvider({ children }: PropsWithChildren) {
     const [isLoading, setIsLoading] = useState(false);
     const [progress, setProgress] = useState(0);
     const [isFadingOut, setIsFadingOut] = useState(false);
-    const [isPageReady, setIsPageReady] = useState(false); 
+    
+    const [isMinTimePassed, setIsMinTimePassed] = useState(false);
+    const [isPageReady, setIsPageReady] = useState(false);
 
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const currentUrl = `${pathname}?${searchParams.toString()}`;
+    const currentUrl = `${pathname}${searchParams?.toString() ? '?' + searchParams.toString() : ''}`;
     const previousUrlRef = useRef(currentUrl);
 
-    const pageReadyRef = useRef(false);
-    const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    // Trackers
+    const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
     const fadeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const bufferTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const minTimerRef = useRef<NodeJS.Timeout | null>(null);
+    const checkerIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    const clearTimers = useCallback(() => {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-        if (fadeTimeoutRef.current) clearTimeout(fadeTimeoutRef.current);
-        if (bufferTimeoutRef.current) clearTimeout(bufferTimeoutRef.current);
+    const stopLoading = useCallback(() => {
+        setIsPageReady(true);
     }, []);
 
-    // Cleanup on unmount
-    useEffect(() => clearTimers, [clearTimers]);
+    const startLoading = useCallback(() => {
+        if (isLoading) return;
+        if (fadeTimeoutRef.current) clearTimeout(fadeTimeoutRef.current);
+        
+        setIsPageReady(false);
+        setIsMinTimePassed(false);
+        setIsLoading(true);
+        setIsFadingOut(false);
+        setProgress(0);
+        previousUrlRef.current = currentUrl;
+    }, [isLoading, currentUrl]);
 
-    // ---------------------------------------------------------
-    // PHASE 1: COMPLETION EXECUTION
-    // ---------------------------------------------------------
-    const executeComplete = useCallback(() => {
-        clearTimers(); 
-        setProgress(100); 
-        setIsFadingOut(true); 
+    // 1. STRICT MINIMUM TIMER
+    useEffect(() => {
+        if (isLoading) {
+            minTimerRef.current = setTimeout(() => {
+                setIsMinTimePassed(true);
+            }, MINIMUM_LOAD_TIME);
+            return () => { if (minTimerRef.current) clearTimeout(minTimerRef.current); };
+        }
+    }, [isLoading]);
 
-        fadeTimeoutRef.current = setTimeout(() => {
-            setIsLoading(false); 
-            setIsFadingOut(false);
-            setProgress(0); 
-        }, ANIMATION_DELAY);
-    }, [clearTimers]);
-
-    // ---------------------------------------------------------
-    // PHASE 2: PROGRESS BAR LOOP
-    // ---------------------------------------------------------
+    // 2. PROGRESS BAR LOOP
     useEffect(() => {
         if (isLoading && !isFadingOut) {
             setProgress(0);
-            clearTimers();
-            
-            intervalRef.current = setInterval(() => {
+            progressIntervalRef.current = setInterval(() => {
                 setProgress((prev) => {
-                    if (pageReadyRef.current) {
-                        return Math.min(prev + 15, MAX_PROGRESS); 
-                    } 
-                    if (prev >= MAX_PROGRESS) {
-                        return MAX_PROGRESS; 
-                    }
-                    const increment = prev < 60 ? Math.random() * 4 + 1 : prev < 90 ? Math.random() * 2 + 0.5 : 0.2; 
+                    if (isPageReady && isMinTimePassed) return Math.min(prev + 12, MAX_PROGRESS);
+                    if (prev >= MAX_PROGRESS) return MAX_PROGRESS; 
+                    const increment = prev < 40 ? Math.random() * 4 + 1 : prev < 85 ? Math.random() * 1.5 + 0.5 : 0.2;
                     return Math.min(prev + increment, MAX_PROGRESS);
                 });
-            }, 100); 
+            }, PROGRESS_INTERVAL);
+            return () => { if (progressIntervalRef.current) clearInterval(progressIntervalRef.current); };
         }
-    }, [isLoading, isFadingOut, clearTimers]); 
+    }, [isLoading, isFadingOut, isPageReady, isMinTimePassed]);
 
-    // ---------------------------------------------------------
-    // PHASE 3: THE 99% GATEKEEPER & ANTI-HANG WATCHDOG
-    // ---------------------------------------------------------
-    const stopLoading = useCallback(() => {
-        pageReadyRef.current = true; 
-        setIsPageReady(true); 
+    // 3. ROUTE DETECTOR
+    useEffect(() => {
+        if (previousUrlRef.current !== currentUrl) {
+            previousUrlRef.current = currentUrl;
+            if (isLoading) stopLoading(); 
+        }
+    }, [currentUrl, isLoading, stopLoading]);
+
+    // 4. THE MASTER FINISHER & SERVER CHECKER
+    const executeComplete = useCallback(() => {
+        if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+        if (checkerIntervalRef.current) clearInterval(checkerIntervalRef.current);
+        
+        setProgress(100);
+        setIsFadingOut(true);
+        
+        fadeTimeoutRef.current = setTimeout(() => {
+            setIsLoading(false);
+            setIsFadingOut(false);
+            setProgress(0);
+            setIsMinTimePassed(false);
+            setIsPageReady(false);
+        }, ANIMATION_DELAY);
     }, []);
 
     useEffect(() => {
         if (isLoading && !isFadingOut && progress >= MAX_PROGRESS) {
-            if (isPageReady) {
-                executeComplete();
-            } else {
-                const watchdogTimer = setTimeout(() => {
-                    stopLoading();
-                }, 3000); 
-                return () => clearTimeout(watchdogTimer);
+            const checkAndClose = () => {
+                const domReady = document.readyState === 'complete';
+                const urlChanged = previousUrlRef.current !== currentUrl;
+
+                if (isMinTimePassed && (isPageReady || domReady || urlChanged)) {
+                    executeComplete();
+                    return true;
+                }
+                return false;
+            };
+
+            const isDone = checkAndClose();
+            if (!isDone && isMinTimePassed) {
+                checkerIntervalRef.current = setInterval(() => {
+                    checkAndClose();
+                }, 2000);
+                return () => { if (checkerIntervalRef.current) clearInterval(checkerIntervalRef.current); };
             }
         }
-    }, [progress, isLoading, isFadingOut, isPageReady, executeComplete, stopLoading]);
+    }, [progress, isLoading, isFadingOut, isMinTimePassed, isPageReady, currentUrl, executeComplete]);
 
-    // ---------------------------------------------------------
-    // PHASE 4: ROUTE CHANGE DETECTOR 
-    // ---------------------------------------------------------
-    useEffect(() => {
-        if (previousUrlRef.current !== currentUrl) {
-            previousUrlRef.current = currentUrl;
-            if (isLoading) {
-                bufferTimeoutRef.current = setTimeout(() => {
-                    requestAnimationFrame(() => {
-                        stopLoading();
-                    });
-                }, 2000); 
-            }
-        }
-    }, [currentUrl, isLoading, stopLoading]);
-
-    // ---------------------------------------------------------
-    // PHASE 5: START LOGIC
-    // ---------------------------------------------------------
-    const startLoading = useCallback(() => {
-        if (isLoading) return;
-        clearTimers(); 
-        pageReadyRef.current = false; 
-        setIsPageReady(false); 
-        setIsLoading(true);
-        setIsFadingOut(false);
-        previousUrlRef.current = currentUrl;
-    }, [isLoading, currentUrl, clearTimers]);
-
-    const contextValue = useMemo(
-        () => ({ startLoading, stopLoading, isLoading, progress }), 
-        [startLoading, stopLoading, isLoading, progress]
-    );
+    const contextValue = useMemo(() => ({ startLoading, stopLoading, isLoading, progress }), [startLoading, stopLoading, isLoading, progress]);
 
     return (
         <LoadingContext.Provider value={contextValue}>
@@ -144,8 +139,8 @@ export function LoadingProvider({ children }: PropsWithChildren) {
     );
 }
 
-export const useLoading = () => {
+export function useLoading() {
     const context = useContext(LoadingContext);
-    if (!context) throw new Error('useLoading must be used within a LoadingProvider');
+    if (context === undefined) throw new Error('useLoading must be used within a LoadingProvider');
     return context;
-};
+}
