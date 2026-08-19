@@ -147,7 +147,7 @@ export default function FinalFooter() {
                     </a> */}
 
                     <div className="flex items-center gap-1.5 ml-0 md:ml-2">
-                        <RollingText text="Website by" />
+                        <RollingText text="Developed by" />
                         <RollingText
                             text="Nipun Kachwaha"
                             className="text-white font-medium"

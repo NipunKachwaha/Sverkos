@@ -3,8 +3,8 @@
 import React, { ReactNode, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { SlicedRollingText } from "@/components/ui/SlicedRollingText";
-import Footer from "@/components/pages/home/Footer";
-import FinalFooter from "@/components/pages/home/FinalFooter"
+import Footer from "@/components/pages/Footer";
+import FinalFooter from "@/components/pages/FinalFooter"
 import FadingVideo from '@/components/ui/FadingVideo'
 
 interface FAQWrapperProps {
