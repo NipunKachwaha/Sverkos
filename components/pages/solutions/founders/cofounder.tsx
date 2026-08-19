@@ -40,7 +40,7 @@ const features = [
 
 const Cofounder = () => {
     return (
-        <div className="pb-16 pt-4 md:pt-8 px-6 md:px-12 lg:px-24 font-sans relative z-20 -mt-16 md:-mt-24">
+        <div className="px-4 font-sans relative z-30">
             <div className="max-w-7xl mx-auto">
 
                 {/* Header Section - Fades and slides down */}
