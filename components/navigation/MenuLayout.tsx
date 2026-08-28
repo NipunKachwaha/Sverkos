@@ -66,7 +66,7 @@ export default function MenuLayout({ isActive, leftTitle, leftItems = [], rightT
                         </div>
                     </TransitionLink>
                 )}
-            </div>
+            </div>                  
         </div>
     );
 }

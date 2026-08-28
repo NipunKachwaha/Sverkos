@@ -7,7 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import { notFound } from 'next/navigation';
 import rehypeRaw from 'rehype-raw';
 import FAQWrapper from '@/components/pages/FAQWrapper';
-import BackgroundEffects from '@/components/pages/home/BackgroundEffects';
+import BackgroundEffects from '@/components/pages/BackgroundEffects';
 
 export const metadata: Metadata = {
     title: 'Blogs',

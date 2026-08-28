@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Navbar from '@/components/navigation/Navbar';
 import SmoothScrolling from '@/components/ui/SmoothScrolling';
-import BackgroundEffects from '@/components/pages/home/BackgroundEffects';
+import BackgroundEffects from '@/components/pages/BackgroundEffects';
 
 const HeroSection = dynamic(() => import('@/components/pages/solutions/founders/HeroSection'));
 const Cofounder = dynamic(() => import('@/components/pages/solutions/founders/cofounder'));

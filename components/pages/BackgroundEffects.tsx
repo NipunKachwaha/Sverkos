@@ -13,7 +13,7 @@ const RippleDistortion = dynamic(() => import('@/components/ui/RippleDistortion/
 export default function BackgroundEffects() {
     return (
         <>
-            {/* 1. Base Layer: Ferrofluid (z-[-10] keeps it behind all components) */}
+            {/* 1. Base Layer */}
             <div
                 aria-hidden="true"
                 className="pointer-events-none fixed inset-0 z-[-10] h-full w-full overflow-hidden opacity-60 transition-opacity duration-700 ease-in-out"

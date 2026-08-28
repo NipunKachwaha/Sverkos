@@ -242,7 +242,7 @@ export default function Navbar() {
       {/* Auth Actions */}
       <div className={`
         flex items-center justify-center gap-3 shrink-0 liquid-glass
-        border border-white/20 rounded-full w-12 h-12
+        border border-white/20 rounded-full h-12 px-2
         z-[110] relative transition-opacity duration-300
         ${isMobileMenuOpen ? 'opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto' : 'opacity-100'}
       `}>
@@ -257,7 +257,7 @@ export default function Navbar() {
             </SignInButton>
             <SignUpButton mode="modal">
               <button className="rounded-full bg-white/90 text-black px-4 py-1.5 text-sm font-semibold hover:bg-white transition-colors shadow-sm focus-visible:ring-2 focus-visible:ring-white">
-                Start your Journey
+                Sign up
               </button>
             </SignUpButton>
           </>

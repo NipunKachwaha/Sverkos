@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import Navbar from '@/components/navigation/Navbar';
 import HeroSection from '@/components/pages/home/HeroSection';
 import SmoothScrolling from '@/components/ui/SmoothScrolling';
-import BackgroundEffects from '@/components/pages/home/BackgroundEffects';
+import BackgroundEffects from '@/components/pages/BackgroundEffects';
 
 // ---------------------------------------------------------------------------
 // BELOW-THE-FOLD SECTIONS (Lazy loaded for faster Initial Page Load)

@@ -6,7 +6,7 @@ import BlogCard from '@/components/pages/resources/blog/BlogCard';
 import BlogSidebar from '@/components/pages/resources/blog/BlogSidebar';
 import FAQWrapper from '@/components/pages/FAQWrapper';
 import Navbar from '@/components/navigation/Navbar';
-import BackgroundEffects from '@/components/pages/home/BackgroundEffects';
+import BackgroundEffects from '@/components/pages/BackgroundEffects';
 
 export const metadata: Metadata = {
     title: 'Blogs',
