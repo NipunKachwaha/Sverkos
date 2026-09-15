@@ -2,7 +2,7 @@
 
 **Space** is a cutting-edge, AI-powered application and deployment platform built with **Next.js 15** and **React 19**. It integrates advanced AI capabilities, real-time in-browser code execution (via WebContainers), immersive 3D interfaces, and comprehensive full-stack infrastructure.
 
-🔗 **Live Demo:** [https://sverkos.vercel.app/]
+🔗 **Live Demo:** https://sverkos.vercel.app/
 <img width="1919" height="930" alt="Screenshot 2026-08-15 211159" src="https://github.com/user-attachments/assets/3fe4e702-441f-414e-a0de-e516bb678366" />
 
 ---
